@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const postRoutes = require("./routes/postRoutes");
+const commentsRoutes = require("./routes/commentsRoutes");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/posts", postRoutes);
+app.use("/comments", commentsRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
