@@ -1,0 +1,31 @@
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title": "A new post",
+    "content": "Here is my post content",
+    "senderId": "someSenderId"
+}
+
+###
+
+GET http://localhost:3000/posts
+
+###
+
+GET http://localhost:3000/posts/6741b7720a270ec3d5875114
+
+###
+
+GET http://localhost:3000/posts/sender=/someSenderId
+
+###
+
+PUT http://localhost:3000/posts/6741b7720a270ec3d5875114
+Content-Type: application/json
+
+{
+    "content": "new content"
+}
