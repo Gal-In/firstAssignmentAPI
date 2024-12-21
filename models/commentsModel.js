@@ -6,7 +6,10 @@ const commentsSchema = new Schema({
     type: String,
     required: true,
   },
-  postId: String,
+  postId: {
+    type: String,
+    required: true,
+  },
   senderId: {
     type: String,
     required: true,
