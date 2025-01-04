@@ -1,46 +1,47 @@
-const postModel = require("../models/postModel");
+import { Request, Response } from "express";
+import postModel from "../models/postModel";
 
-const addNewPost = async (req, res) => {
+const addNewPost = async (req: Request, res: Response) => {
   try {
     const newPost = await postModel.create(req.body);
     res.status(201).send(newPost);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const getAllPosts = async (req, res) => {
+const getAllPosts = async (req: Request, res: Response) => {
   try {
     const allPosts = await postModel.find({});
     res.status(200).send(allPosts);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const getPostById = async (req, res) => {
+const getPostById = async (req: Request, res: Response) => {
   const postId = req.params.id;
 
   try {
     const currentPost = await postModel.findById(postId);
     res.status(200).send(currentPost);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const getPostsBySenderId = async (req, res) => {
+const getPostsBySenderId = async (req: Request, res: Response) => {
   const senderId = req.params.senderId;
 
   try {
     const posts = await postModel.find({ senderId });
     res.status(200).send(posts);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const updatePost = async (req, res) => {
+const updatePost = async (req: Request, res: Response) => {
   const postId = req.params.id;
   const newPostData = req.body;
 
@@ -53,11 +54,11 @@ const updatePost = async (req, res) => {
 
     res.status(200).send(newPost);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-module.exports = {
+export default {
   addNewPost,
   getAllPosts,
   getPostById,
