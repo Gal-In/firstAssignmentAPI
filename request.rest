@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "title": "A new post",
     "content": "Here is my post content",
-    "senderId": "someSenderId"
+    "senderId": "67790cb4fb2234e335606798"
 }
 
 ###
@@ -15,7 +15,7 @@ GET http://localhost:3000/posts
 
 ###
 
-GET http://localhost:3000/posts/6741b7720a270ec3d5875114
+GET http://localhost:3000/posts/6766ae86b634082a42ed607d
 
 ###
 
@@ -23,7 +23,7 @@ GET http://localhost:3000/posts/sender=/someSenderId
 
 ###
 
-PUT http://localhost:3000/posts/6741b7720a270ec3d5875114
+PUT http://localhost:3000/posts/6766ae86b634082a42ed607d
 Content-Type: application/json
 
 {
@@ -36,8 +36,8 @@ POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-    "postId": "2",
-    "message": "Here is my comment",
+    "postId": "67790cf4f387c4e772cceb43",
+    "message": "Here is my comment 2",
     "senderId": "1"
 }
 
@@ -47,17 +47,54 @@ GET http://localhost:3000/comments
 
 ###
 
-GET http://localhost:3000/comments/2
+GET http://localhost:3000/comments/6766acb7b634082a42ed6075
 
 ###
 
-DELETE  http://localhost:3000/comments/674755819105b7c14ac23818
+DELETE  http://localhost:3000/comments/674624a98092baae4ea92065
 
 ###
 
-PUT http://localhost:3000/comments/67473368e261907ce821440a
+PUT http://localhost:3000/comments/674624a98092baae4ea92064
 Content-Type: application/json
 
 {
     "message": "new content"
+}
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "gal",
+    "email": "gal@gmail.com",
+    "password": "12345"
+}
+
+###
+
+GET http://localhost:3000/users
+
+###
+
+DELETE  http://localhost:3000/users/674624a98092baae4ea92065
+
+###
+
+PUT http://localhost:3000/users/67790f9900c569588dcefaf4
+Content-Type: application/json
+
+{
+    "password": "1234"
+}
+
+###
+
+PUT http://localhost:3000/users/67790f9900c569588dcefaf4
+Content-Type: application/json
+
+{
+    "email": "koko@gmail.com"
 }

@@ -1,24 +1,25 @@
-const commentsModel = require("../models/commentsModel");
+import { Request, Response } from "express";
+import commentsModel from "../models/commentsModel";
 
-const addNewComment = async (req, res) => {
+const addNewComment = async (req: Request, res: Response) => {
   try {
     const newComment = await commentsModel.create(req.body);
     res.status(201).send(newComment);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const getAllComments = async (req, res) => {
+const getAllComments = async (req: Request, res: Response) => {
   try {
     const allComments = await commentsModel.find({});
     res.status(200).send(allComments);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const updateComment = async (req, res) => {
+const updateComment = async (req: Request, res: Response) => {
   const CommentId = req.params.id;
   const newCommentData = req.body;
 
@@ -31,33 +32,33 @@ const updateComment = async (req, res) => {
 
     res.status(200).send(newComment);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const deleteComment = async (req, res) => {
+const deleteComment = async (req: Request, res: Response) => {
   const commentId = req.params.id;
 
   try {
     const deletedComment = await commentsModel.findByIdAndDelete(commentId);
     res.status(200).send(deletedComment);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-const getCommentsByPostId = async (req, res) => {
+const getCommentsByPostId = async (req: Request, res: Response) => {
   const postId = req.params.postId;
 
   try {
     const PostComments = await commentsModel.find({ postId });
     res.status(200).send(PostComments);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
-module.exports = {
+export default {
   addNewComment,
   getAllComments,
   updateComment,
