@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const commentsSchema = new Schema({
+export interface Comment {
+  _id: string;
+  message: string;
+  postId: string;
+  senderId: string;
+}
+
+const commentsSchema = new Schema<Comment>({
   message: {
     type: String,
     required: true,

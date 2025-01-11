@@ -24,8 +24,6 @@ let postId: string;
 beforeAll(async () => {
   app = await initApp();
 
-  await postModel.deleteMany({});
-
   await Promise.all([postModel.deleteMany(), userModel.deleteMany()]);
   const { body: userDetails } = await request(app)
     .post("/auth/registration")

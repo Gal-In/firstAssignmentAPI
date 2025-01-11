@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 export interface Post {
   _id: string;
   title: string;
-  content: string;
+  content?: string;
   senderId: string;
 }
 
