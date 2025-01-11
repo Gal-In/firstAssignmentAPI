@@ -34,7 +34,6 @@ const updateUserDetails = async (req: Request, res: Response) => {
       detailsToUpdate.password
     );
 
-  console.log(userId);
   try {
     const newUser = await userModel.findOneAndUpdate(
       { _id: userId },
@@ -53,7 +52,10 @@ const deleteUser = async (req: Request, res: Response) => {
 
   try {
     const deletedUser = await userModel.findByIdAndDelete(userId);
-    if (!deletedUser) res.status(400).send("invalid input");
+    if (!deletedUser) {
+      res.status(400).send("invalid input");
+      return;
+    }
     res.status(200).send(deletedUser);
   } catch (error) {
     res.status(400).send(error);
