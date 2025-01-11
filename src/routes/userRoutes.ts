@@ -1,5 +1,6 @@
 import express from "express";
 import users from "../controller/userController";
+import authenticationController from "../controller/authenticationController";
 const router = express.Router();
 
 /**
@@ -45,9 +46,13 @@ const router = express.Router();
  *         refreshTokens: []
  */
 
+// TODO: add document
 router.get("/", users.getAllUsers);
-router.put("/:id", users.updateUserEmail);
-router.put("/:id", users.updateUserPassword);
-router.delete("/:id", users.deleteUser);
+// TODO: add document
+router.get("/:id", users.getUserById);
+// TODO: add document
+router.put("/", authenticationController.authenticate, users.updateUserDetails);
+// TODO: add document
+router.delete("/", authenticationController.authenticate, users.deleteUser);
 
 export default router;

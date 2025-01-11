@@ -67,39 +67,25 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODEyNTc0NDA2
 
 ###
 
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-    "username": "gal",
-    "email": "gal@gmail.com",
-    "password": "12345"
-}
-
-###
-
 GET http://localhost:3000/users
 
 ###
 
-DELETE  http://localhost:3000/users/674624a98092baae4ea92065
+GET http://localhost:3000/users/6782a5c30b9d4b49fd1dd1c9
+###
+
+DELETE  http://localhost:3000/users
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJhNWMzMGI5ZDRiNDlmZDFkZDFjOSIsImlhdCI6MTczNjYxNTM4NiwiZXhwIjoxNzM2NjMzMzg2fQ.0NUJm4u_koUpogzP1c5lR1DKdVUrLV8cl6X4ZCucdgU
 
 ###
 
-PUT http://localhost:3000/users/67790f9900c569588dcefaf4
+PUT http://localhost:3000/users
 Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODJhNWMzMGI5ZDRiNDlmZDFkZDFjOSIsImlhdCI6MTczNjYxNTM4NiwiZXhwIjoxNzM2NjMzMzg2fQ.0NUJm4u_koUpogzP1c5lR1DKdVUrLV8cl6X4ZCucdgU
 
 {
+    "email": "toto@gmail.com",
     "password": "1234"
-}
-
-###
-
-PUT http://localhost:3000/users/67790f9900c569588dcefaf4
-Content-Type: application/json
-
-{
-    "email": "koko@gmail.com"
 }
 
 ###

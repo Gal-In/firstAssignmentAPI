@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userModel from "../models/userModel";
+import authController from "../controller/authenticationController";
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -10,31 +11,33 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-const updateUserPassword = async (req: Request, res: Response) => {
-  const userId = req.params.id;
-  const newUserPassword = req.body;
-
+const getUserById = async (req: Request, res: Response) => {
   try {
-    const newUser = await userModel.findOneAndUpdate(
-      { _id: userId },
-      newUserPassword,
-      { new: true }
-    );
+    const currUser = await userModel.findById(req.params.id);
 
-    res.status(200).send(newUser);
+    if (currUser) {
+      res.status(200).send(currUser);
+    } else {
+      res.status(404).send("user not found");
+    }
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-const updateUserEmail = async (req: Request, res: Response) => {
-  const userId = req.params.id;
-  const newUserEmail = req.body;
+const updateUserDetails = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const detailsToUpdate = req.body;
+
+  if (detailsToUpdate.password)
+    detailsToUpdate.password = await authController.encryptPassword(
+      detailsToUpdate.password
+    );
 
   try {
     const newUser = await userModel.findOneAndUpdate(
       { _id: userId },
-      newUserEmail,
+      detailsToUpdate,
       { new: true }
     );
 
@@ -45,7 +48,7 @@ const updateUserEmail = async (req: Request, res: Response) => {
 };
 
 const deleteUser = async (req: Request, res: Response) => {
-  const userId = req.params.id;
+  const userId = req.params.userId;
 
   try {
     const deletedUser = await userModel.findByIdAndDelete(userId);
@@ -57,7 +60,7 @@ const deleteUser = async (req: Request, res: Response) => {
 
 export default {
   getAllUsers,
-  updateUserEmail,
-  updateUserPassword,
+  getUserById,
+  updateUserDetails,
   deleteUser,
 };

@@ -195,4 +195,5 @@ export default {
   logout,
   registration,
   refreshToken,
+  encryptPassword,
 };
