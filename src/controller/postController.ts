@@ -29,7 +29,9 @@ const getPostById = async (req: Request, res: Response) => {
 
   try {
     const currentPost = await postModel.findById(postId);
-    res.status(200).send(currentPost);
+
+    if (!currentPost) res.status(404).send("post not found");
+    else res.status(200).send(currentPost);
   } catch (error) {
     res.status(400).send(error);
   }
