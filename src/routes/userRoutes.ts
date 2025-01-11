@@ -46,13 +46,124 @@ const router = express.Router();
  *         refreshTokens: []
  */
 
-// TODO: add document
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *      summary: Get all existing users
+ *      description: Retrives an array of all saved users
+ *      tags:
+ *          - Users
+ *      responses:
+ *          200:
+ *              description: Array of all saved users
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/User'
+ *          500:
+ *              description: Server Error
+ */
 router.get("/", users.getAllUsers);
-// TODO: add document
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *      summary: Get user by id
+ *      description: Retrieves a specific user by its id
+ *      tags:
+ *          - Users
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: User id
+ *      responses:
+ *           200:
+ *              description: Single User
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/User'
+ *           400:
+ *              description: Invalid input
+ *           404:
+ *              description: User not found
+ *           500:
+ *              description: Server Error
+ */
 router.get("/:id", users.getUserById);
-// TODO: add document
+
+/**
+ * @swagger
+ * /users:
+ *   put:
+ *      summary: Update user
+ *      description: Update user and retrives it back
+ *      tags:
+ *          - Users
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              description: Posts email
+ *                              example: bob123@gmail.com
+ *                          password:
+ *                              type: string
+ *                              description: Users password
+ *                              example: Aa123456
+ *      responses:
+ *           200:
+ *              description: Updated User
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/User'
+ *           400:
+ *              description: Invalid input
+ *           403:
+ *              description: Unauthorized
+ *           500:
+ *              description: Server Error
+ */
 router.put("/", authenticationController.authenticate, users.updateUserDetails);
-// TODO: add document
+
+/**
+ * @swagger
+ * /users:
+ *   delete:
+ *      summary: Delete user
+ *      description: Delete user and retrevies him back
+ *      tags:
+ *          - Users
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *           200:
+ *              description: User deleted successfully
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/User'
+ *           400:
+ *              description: Invalid input
+ *           403:
+ *              description: Unauthorized
+ *           500:
+ *              description: Server Error
+ */
 router.delete("/", authenticationController.authenticate, users.deleteUser);
 
 export default router;
