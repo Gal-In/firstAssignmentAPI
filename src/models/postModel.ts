@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const postSchema = new Schema({
+export interface Post {
+  _id: string;
+  title: string;
+  content: string;
+  senderId: string;
+}
+
+const postSchema = new Schema<Post>({
   title: {
     type: String,
     required: true,

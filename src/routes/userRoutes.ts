@@ -45,7 +45,6 @@ const router = express.Router();
  *         refreshTokens: []
  */
 
-router.post("/", users.addNewUser);
 router.get("/", users.getAllUsers);
 router.put("/:id", users.updateUserEmail);
 router.put("/:id", users.updateUserPassword);
