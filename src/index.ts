@@ -2,6 +2,7 @@ import express from "express";
 import postRoutes from "./routes/postRoutes";
 import commentsRoutes from "./routes/commentsRoutes";
 import usersRoutes from "./routes/userRoutes";
+import authenticationRoutes from "./routes/authenticationRoutes";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/posts", postRoutes);
 app.use("/comments", commentsRoutes);
 app.use("/users", usersRoutes);
+app.use("/auth", authenticationRoutes);
 
 const options = {
   definition: {

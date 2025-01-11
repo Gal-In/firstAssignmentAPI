@@ -3,7 +3,12 @@ import postModel from "../models/postModel";
 
 const addNewPost = async (req: Request, res: Response) => {
   try {
-    const newPost = await postModel.create(req.body);
+    const { content, title } = req.body;
+    const newPost = await postModel.create({
+      content,
+      title,
+      senderId: req.params.userId,
+    });
     res.status(201).send(newPost);
   } catch (error) {
     res.status(400).send(error);

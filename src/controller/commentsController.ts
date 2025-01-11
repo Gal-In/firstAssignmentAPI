@@ -3,7 +3,12 @@ import commentsModel from "../models/commentsModel";
 
 const addNewComment = async (req: Request, res: Response) => {
   try {
-    const newComment = await commentsModel.create(req.body);
+    const { message, postId } = req.body;
+    const newComment = await commentsModel.create({
+      message,
+      postId,
+      senderId: req.params.userId,
+    });
     res.status(201).send(newComment);
   } catch (error) {
     res.status(400).send(error);
