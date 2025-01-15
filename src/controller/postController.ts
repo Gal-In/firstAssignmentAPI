@@ -3,7 +3,12 @@ import postModel from "../models/postModel";
 
 const addNewPost = async (req: Request, res: Response) => {
   try {
-    const newPost = await postModel.create(req.body);
+    const { content, title } = req.body;
+    const newPost = await postModel.create({
+      content,
+      title,
+      senderId: req.params.userId,
+    });
     res.status(201).send(newPost);
   } catch (error) {
     res.status(400).send(error);
@@ -24,7 +29,9 @@ const getPostById = async (req: Request, res: Response) => {
 
   try {
     const currentPost = await postModel.findById(postId);
-    res.status(200).send(currentPost);
+
+    if (!currentPost) res.status(404).send("post not found");
+    else res.status(200).send(currentPost);
   } catch (error) {
     res.status(400).send(error);
   }
