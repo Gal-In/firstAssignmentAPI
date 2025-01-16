@@ -111,7 +111,7 @@ describe("Test Comments API", () => {
     });
   });
 
-  test("Test get coments by incorrect sender id", async () => {
+  test("Test get comments by incorrect sender id", async () => {
     const response = await request(app).get(
       "/comments/6780eba5f7a9d4a880c56d6b"
     );
