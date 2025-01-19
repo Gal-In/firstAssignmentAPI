@@ -74,10 +74,8 @@ describe("Authentication Tests", () => {
       const response = await request(app)
         .post(baseUrl + "/login")
         .send(testUser);
-      const accessToken = response.body.accessToken;
       const refreshToken = response.body.refreshToken;
 
-      // expect(accessToken).not.toBe(testUser.accessToken);
       expect(refreshToken).not.toBe(testUser.refreshToken);
     }
   });
@@ -91,22 +89,22 @@ describe("Authentication Tests", () => {
 
     expect(response.statusCode).not.toBe(200);
   });
-  test("test authentication request", async () => {
-    const response = await request(app).post("/posts").send({
+  test("test request authentication", async () => {
+    const allPostsResponse = await request(app).post("/posts").send({
       title: "post",
       content: "content",
-      senderId: "user",
+      senderId: "12345678",
     });
-    expect(response.statusCode).not.toBe(201);
-    const response2 = await request(app)
+    expect(allPostsResponse.statusCode).not.toBe(201);
+    const allPostsResponseWithAuth = await request(app)
       .post("/posts")
       .set({ authorization: "JWT " + testUser!.accessToken })
       .send({
         title: "post",
         content: "content",
-        senderId: "user",
+        senderId: "12345678",
       });
-    expect(response2.statusCode).toBe(201);
+    expect(allPostsResponseWithAuth.statusCode).toBe(201);
   });
   test("test refresh token", async () => {
     const response = await request(app)
@@ -120,7 +118,7 @@ describe("Authentication Tests", () => {
     testUser!.accessToken = response.body.accessToken;
     testUser!.refreshToken = response.body.refreshToken;
   });
-  test("Double use refresh token", async () => {
+  test("use refresh token twice", async () => {
     const response = await request(app)
       .post(baseUrl + "/refreshToken")
       .set({
@@ -128,12 +126,12 @@ describe("Authentication Tests", () => {
       });
     expect(response.statusCode).toBe(200);
     const newRefreshToken = response.body.refreshToken;
-    const newResponse = await request(app)
+    const sameTokenResponse = await request(app)
       .post(baseUrl + "refreshToken")
       .set({
         authorization: "JWT " + newRefreshToken,
       });
-    expect(newResponse.statusCode).not.toBe(200);
+    expect(sameTokenResponse.statusCode).not.toBe(200);
   });
   test("Test logout", async () => {
     const response = await request(app)
@@ -142,18 +140,18 @@ describe("Authentication Tests", () => {
     expect(response.statusCode).toBe(200);
     testUser!.accessToken = response.body.accessToken;
     testUser!.refreshToken = response.body.refreshToken;
-    const response2 = await request(app)
+    const logoutResponse = await request(app)
       .post(baseUrl + "/logout")
       .set({
         authorization: "JWT " + testUser!.refreshToken,
       });
-    expect(response2.statusCode).toBe(200);
-    const response3 = await request(app)
+    expect(logoutResponse.statusCode).toBe(200);
+    const refreshResponse = await request(app)
       .post(baseUrl + "refreshToken")
       .send({
         refreshToken: testUser!.refreshToken,
       });
-    expect(response3.statusCode).not.toBe(200);
+    expect(refreshResponse.statusCode).not.toBe(200);
   });
   jest.setTimeout(10000);
   test("Test timeout token", async () => {
