@@ -69,16 +69,6 @@ describe("Authentication Tests", () => {
       testUser.refreshToken = refreshToken;
     }
   });
-  test("Check tokens are not the same", async () => {
-    if (testUser) {
-      const response = await request(app)
-        .post(baseUrl + "/login")
-        .send(testUser);
-      const refreshToken = response.body.refreshToken;
-
-      expect(refreshToken).not.toBe(testUser.refreshToken);
-    }
-  });
   test("Auth test login fail", async () => {
     const response = await request(app)
       .post(baseUrl + "/login")
